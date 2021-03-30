@@ -1,4 +1,4 @@
 from client import Client
 
 client = Client()
-print(client.encrpytMess())
+print(client.encrpyt_message())
