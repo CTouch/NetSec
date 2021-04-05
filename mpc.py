@@ -17,4 +17,4 @@ class Mpc:
         pass
 
     def aes_2p_cbc(self):
-        aes = AES.new(self.Key, AES.MODE_CBC, self.Message[0:16])
+
