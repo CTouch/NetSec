@@ -1,7 +1,7 @@
 from Cryptodome.Cipher import AES
 from Cryptodome import Random
 
-
+# following Protocol 4: 2P-CBC
 class Mpc:
     # 16 bytes AES-CBC
     def __init__(self):

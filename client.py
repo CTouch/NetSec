@@ -1,6 +1,6 @@
 from utils import Utils
-from Cryptodome import Random
-from Cryptodome.Cipher import AES
+from Crypto import Random
+from Crypto.Cipher import AES
 
 
 class Client:
@@ -8,24 +8,28 @@ class Client:
         self.key = b'0123456789ABCDEF'  # get a Key in bytes
         self.iv = Random.new().read(AES.block_size)  # get an iv in bytes
         self.filePath = "ClientMassage.txt"  # file needs to be sent
+        self.prefixIndex = 32
+        self.cipher_len = 0
 
-    def encrpyt_message(self):
+    def encrpyt_prefix(self):
         file = open(self.filePath, "r")
         message = file.read()
+        cipher_prefix = Utils.aes_cbc_encrypt(self.iv, message[:self.prefixIndex], self.key)
+        self.cipher_len += len(cipher_prefix)
+        return cipher_prefix
 
-        # 直接加密
-        return Utils.aes_cbc_encrypt(self.iv, message, self.key)
-
-        # 拆分AES-CBC加密
-        # this function return ciphertext in bytes
-        # encrypt_message = Utils.aes_cbc_encrypt_split(self.iv, message, self.key)
-        # return encrypt_message
+    def encrpyt_suffix(self, prev_cipher):
+        file = open(self.filePath, "r")
+        message = file.read()
+        cipher_suffix = Utils.aes_cbc_encrypt(prev_cipher, message[self.prefixIndex:], self.key)
+        self.cipher_len += len(cipher_suffix)
+        return cipher_suffix
 
     def decrypt_message(self, message):
-        # 直接解密
-        # return Utils.aes_cbc_decrypt(self.iv, message, self.key)
+        return Utils.aes_cbc_decrypt(self.iv, message, self.key)
 
-        # 拆分AES-CBC解密
-        # this function return plaintext in bytes
-        decrypt_message = Utils.aes_cbc_decrypt_split(self.iv, message, self.key)
-        return decrypt_message
+    def get_challenge(self, cipher):
+        msg = self.decrypt_message(cipher).decode()
+        len_challenge = len(cipher) - self.cipher_len
+        challenge = msg[self.prefixIndex:self.prefixIndex + len_challenge]
+        return challenge

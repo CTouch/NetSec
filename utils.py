@@ -1,6 +1,7 @@
-from Cryptodome.Cipher import AES
-from Cryptodome import Random
+from Crypto.Cipher import AES
+from Crypto import Random
 import re
+import crypt
 
 
 # str -> bytes : encode()
@@ -18,7 +19,7 @@ class Utils:
     @staticmethod
     def add_16(data):
         # return bytes
-        tmp = data + '!' * (16 - len(data) % 16)
+        tmp = data + '!' * ((16 - len(data.encode()) % 16) % 16)
         return tmp.encode()
 
     @staticmethod
