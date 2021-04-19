@@ -15,7 +15,7 @@ from_addr = "953918409@qq.com"
 from_pwd = "vpheqiododknbehb"#此处我是随便写的
 
 # 接受email地址，填入你要发送的邮箱地址，此处地址是我另外一个QQ小号的邮箱地址
-to_addr = "953918409@qq.com"
+to_addr = "941874266@qq.com"
 
 # 输入SMTP服务器地址，并使用该服务器给你发送电子邮件
 # 此处根据不同的邮件服务商有不同的值，

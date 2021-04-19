@@ -1,9 +1,25 @@
 from client import Client
+from mpc import Mpc
+from proxy import Proxy
 
-client = Client()
-ciphertext = client.encrpyt_message()
-print(str(client.decrypt_message(ciphertext),'utf-8'))
 
+mpc = Mpc()
+# proxy = Proxy()
+print("MPC is ready for computation, please initialize client and proxy:(Press any key to continue)")
+input()
+print("then we set our client:")
+client = Client(mpc)
+client.start()
+
+# print(mpc.Prefix, mpc.Suffix, mpc.Key, mpc.IV)
+print("Press any key to continue:")
+input()
+print("then we set our proxy:")
+proxy = Proxy(mpc)
+proxy.start()
+
+# ciphertext = client.encrpyt_message()
+# print(str(client.decrypt_message(ciphertext), 'utf-8'))
 
 # a = [1, 2, 3, 4]
 # a.reverse()
