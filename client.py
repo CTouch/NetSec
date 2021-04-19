@@ -42,6 +42,15 @@ class Client:
         else:
             print("error! ")
 
+    # def check_info(self, message):
+    #     lines = []
+    #     while True:
+    #         try:
+    #             lines.append(input('end with CTRL+D \n'))
+    #         except:
+    #             break
+    #     print(lines)
+
     # def encrpyt_message(self):
     #     file = open(self.filePath, "r")
     #     message = file.read()

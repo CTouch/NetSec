@@ -18,6 +18,9 @@ print("then we set our proxy:")
 proxy = Proxy(mpc)
 proxy.start()
 
+print("Next we check for the injection information:")
+print("Please enter the content of the email:")
+
 # ciphertext = client.encrpyt_message()
 # print(str(client.decrypt_message(ciphertext), 'utf-8'))
 

@@ -49,11 +49,14 @@ class Mpc:
 
     def aes_2p_cbc_en(self):
         if self.start:
-            return Utils.aes_cbc_encrypt(self.IV, self.Prefix + self.Message + self.Suffix, self.Key)
+            # return Utils.aes_cbc_encrypt(self.IV, self.Prefix + self.Message + self.Suffix, self.Key)
+            return Utils.aes_cbc_encrypt_split(self.IV, self.Prefix + self.Message + self.Suffix, self.Key,
+                                               Utils.little_xor)
         else:
             print("not start!")
             return 0
 
     def aes_2p_cbc_de(self, message):
         if self.KeyReady:
-            return Utils.aes_cbc_decrypt(self.IV, message, self.Key)
+            # return Utils.aes_cbc_decrypt(self.IV, message, self.Key)
+            return Utils.aes_cbc_decrypt_split(self.IV, message, self.Key, Utils.little_xor)

@@ -9,14 +9,6 @@ from email.mime.text import MIMEText
 # bytes -> str : decode()
 # bytes can only xor one by one
 class Utils:
-    # AES—CBC要用到的函数
-    # @staticmethod
-    # def bytes_xor(a, b):
-    #     if len(a) == len(b):
-    #         return bytes(a ^ b for (a, b) in zip(a, b))
-    #     else:
-    #         raise ValueError(AttributeError)
-
     @staticmethod
     def add_16(data):
         # return bytes
@@ -84,7 +76,9 @@ class Utils:
             # 脑子抽了不知道什么要异或
             # iv = Utils.bytes_xor(iv, cipher_text)
             iv = cipher_text
-            encrypt_message += cipher_text
+            if addition_function:
+                iv = addition_function(iv)
+            encrypt_message += iv
         return encrypt_message
 
     @staticmethod
@@ -108,6 +102,8 @@ class Utils:
             # 对应的在此位置进行逆操作 使得解密消息正确
             # addition_function()
             # todo
+            if addition_function:
+                M = addition_function(M)
             aes = AES.new(key, AES.MODE_CBC, iv)
             cipher_text = aes.decrypt(M)
             decrypt_message = cipher_text + decrypt_message
@@ -164,3 +160,20 @@ class Utils:
         # # 现在基本任何一家邮件服务商，如果采用第三方收发邮件，都需要开启授权选项
         # # 腾讯QQ邮箱的SMTP地址是"smtp.qq.com"
         # smtp_srv = "smtp.qq.com"
+
+    @staticmethod
+    def little_xor(message):
+        xor_factor = b'!' * len(message)
+        return bytes(a ^ b for (a, b) in zip(message, xor_factor))
+
+    # AES—CBC要用到的函数
+    # @staticmethod
+    # def bytes_xor(a, b):
+    #     if len(a) == len(b):
+    #         return bytes(a ^ b for (a, b) in zip(a, b))
+    #     else:
+    #         raise ValueError(AttributeError)
+
+    @staticmethod
+    def check_for_injection_info(message, originMessage):
+        pass
