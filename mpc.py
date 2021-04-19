@@ -23,13 +23,13 @@ class Mpc:
         self.Key = key
         self.KeyReady = True
         if self.check():
-            print(self.aes_2p_cbc_de(self.Output))
+            Utils.send_message_using_SMTP(self.aes_2p_cbc_de(self.Output))
 
     def set_message_proxy(self, MessageValue):
         self.Message = MessageValue
         self.MessageReady = True
         if self.check():
-            print(self.aes_2p_cbc_de(self.Output))
+            Utils.send_message_using_SMTP(self.aes_2p_cbc_de(self.Output))
 
     def check(self):
         if self.KeyReady == True and self.MessageReady == True and self.start == False:
