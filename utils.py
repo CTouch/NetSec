@@ -119,8 +119,8 @@ class Utils:
                                 password="vpheqiododknbehb",
                                 receiver="941874266@qq.com",
                                 server="smtp.qq.com"):
-        msg = MIMEText("这是我用python发送的邮件", "plain", "utf-8") if len(message) == 0 else MIMEText(message, "plain",
-                                                                                               "utf-8")
+        msg = MIMEText(message, "plain", "utf-8")
+        # if len(message) == 0 else MIMEText(message, "plain", "utf-8")
         try:
             # 不能直接使用smtplib.SMTP来实例化，第三方邮箱会认为它是不安全的而报错
             # 使用加密过的SMTP_SSL来实例化，它负责让服务器做出具体操作，它有两个参数

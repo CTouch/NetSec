@@ -11,29 +11,37 @@ class Client:
         self.iv = Random.new().read(AES.block_size)  # get an iv in bytes
         self.filePath = "ClientMassage.txt"  # file needs to be sent
         self.mpc = mpc
+    #
+    # def setMessagePath(self, filePath):
+    #     self.filePath = filePath
+    #
+    # def __setattr__(self, key, value):
+
 
     def start(self):
-        print("How do you set your Message : 1->terminal input 2->file ")
-        message = ''
-        number = input()
-        if number == '1':
-            print("Please enter the Message :")
-            message = input()
-        elif number == '2':
-            print("Please enter the file path :")
-            c = input()
-            if c != '':
-                self.filePath = input()
-            else:
-                print("Then we use default file")
-            try:
-                file = open(self.filePath, "r")
-                message = file.read()
-            except Exception as r:
-                print('error: %s' % r)
-                return
-        else:
-            print("error")
+        # print("How do you set your Message : 1->terminal input 2->file ")
+        # message = ''
+        # number = input()
+        # if number == '1':
+        #     print("Please enter the Message :")
+        #     message = input()
+        # elif number == '2':
+        #     print("Please enter the file path :")
+        #     c = input()
+        #     if c != '':
+        #         self.filePath = input()
+        #     else:
+        #         print("Then we use default file")
+        #     try:
+        #         file = open(self.filePath, "r")
+        #         message = file.read()
+        #     except Exception as r:
+        #         print('error: %s' % r)
+        #         return
+        # else:
+        #     print("error")
+        file = open(self.filePath, "r")
+        message = file.read()
         k = len(message)
         c = random.randint(1, k)
         if isinstance(self.mpc, Mpc):
