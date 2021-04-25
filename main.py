@@ -4,17 +4,17 @@ from proxy import Proxy
 
 
 mpc = Mpc()
-# proxy = Proxy()
-# print("MPC is ready for computation, please initialize client and proxy:(Press any key to continue)")
-# input()
-# print("then we set our client:")
+
+print("MPC is ready for computation, please initialize client and proxy:(Press any key to continue)")
+input()
+print("then we set our client:")
 client = Client(mpc)
 client.start()
 
 # print(mpc.Prefix, mpc.Suffix, mpc.Key, mpc.IV)
-# print("Press any key to continue:")
-# input()
-# print("then we set our proxy:")
+print("Press any key to continue:")
+input()
+print("then we set our proxy:")
 proxy = Proxy(mpc)
 proxy.start()
 

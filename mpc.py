@@ -15,6 +15,29 @@ class Mpc:
         self.__Suffix__ = ''
         self.__Message__ = ''
         self.__Output__ = ''
+        self.__EncInjection__ = ''
+        self.__EncSuffix__ = ''
+
+    def set_Message(self, message):
+        self.__Message__ = message
+
+    def set_IV(self, iv):
+        self.__IV__ = iv
+
+    def set_Prefix(self, prefix):
+        self.__Prefix__ = prefix
+
+    def set_Suffix(self, suffix):
+        self.__Suffix__ = suffix
+
+    def set_Key(self, key):
+        self.__Key__ = key
+
+    def start_encrpyt(self):
+        return Utils.aes_cbc_encrypt(self.__IV__, self.__Message__, self.__Key__)
+
+    def start_decrpyt(self, Message):
+        return Utils.aes_cbc_decrypt(self.__IV__, Message, self.__Key__)
 
     def set_message_client(self, iv, prefix, suffix, key):
         self.__IV__ = iv
@@ -60,3 +83,10 @@ class Mpc:
         if self.__KeyReady__:
             # return Utils.aes_cbc_decrypt(self.IV, message, self.Key)
             return Utils.aes_cbc_decrypt_split(self.__IV__, message, self.__Key__, Utils.little_xor)
+
+    def handle_injection(self, iv, message):
+        # iv is 128 bits 16bytes
+        self.__EncInjection__ = Utils.aes_cbc_encrypt(iv, message, self.__Key__)
+
+    def encrpyt_suffix(self, message):
+        self.__EncSuffix__ = Utils.aes_cbc_encrypt(self.__EncInjection__[-16:0], message, self.__Key__)
